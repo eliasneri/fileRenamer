@@ -1,0 +1,63 @@
+package com.betaservicos.filerenamer.repository;
+
+import com.betaservicos.filerenamer.domain.FileRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+import java.util.List;
+import java.util.Set;
+
+public class PersonRepository {
+    private static final Logger logger = LoggerFactory.getLogger(PersonRepository.class);
+
+    private final JdbcTemplate jdbcTemplate;
+
+    public PersonRepository(DriverManagerDataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
+    public List<Integer> getAllPersonIds() {
+        try {
+            logger.info("Buscando id's dos candidatos - (person_id)");
+                String sql = "SELECT person_id FROM person.person ORDER BY person_id";
+                List<Integer> list = jdbcTemplate.query(sql, (rs, rowNum) -> rs.getInt("person_id"));
+            logger.info("Encontrado: " + list.size() + " ids!");
+            return list;
+
+        } catch (Exception e) {
+            logger.error("No list for person id! ", e);
+            return null;
+        }
+    }
+
+    public List<FileRecord> getFilesForPersons(int personId) {
+        try {
+            logger.info("Buscando Lista de arquivos no banco de Dados para Migração! ");
+            String sql = "SELECT " +
+                    "tf.file_id, " +
+                    "tf.file_type, " +
+                    "tf.name, " +
+                    "tp.name as person_name" +
+                    "from person.person p " +
+                    "LEFT JOIN youdocx.files f ON f.owner_id = p.person_id" +
+                    "WHERE p.person_id = ? " +
+                    "AND f.file_type <> 'dir'";
+
+            List<FileRecord> files = jdbcTemplate.query(sql, new Object[]{personId}, (rs, rowNum) ->
+                    new FileRecord(
+                            rs.getInt("file_id"),
+                            rs.getString("file_type"),
+                            rs.getString("name"),
+                            rs.getString("person_name")
+                    ));
+            logger.info("Encontrado: " + files.size() + " registros para migração!");
+            return files;
+
+        } catch (Exception e) {
+            logger.error("no list files on DB ", e);
+            return null;
+        }
+    }
+}
