@@ -19,7 +19,10 @@ public class DatabaseConfig {
     private String password;
 
     public DatabaseConfig() {
+        load();
+    }
 
+    public boolean load() {
         this.user = null;
         this.password = null;
         this.url = null;
@@ -33,12 +36,21 @@ public class DatabaseConfig {
                 throw new IOException("FAIL! application.properties");
             }
 
-            this.url = prop.getProperty("db.url");
+            this.url = prop.getProperty("db.url") + prop.getProperty("db.dataname");
             this.password = prop.getProperty("db.password");
             this.user = prop.getProperty("db.user");
 
+            if (url != null) {
+                logger.info("Conectado com sucesso: " + url);
+                return true;
+            } else {
+                logger.error("Não conectado !!!");
+                return false;
+            }
+
         } catch (IOException ex) {
             logger.error("Erro ao Ler arquivo de Configuração do Banco de Dados! ", ex);
+            return false;
         }
     }
 

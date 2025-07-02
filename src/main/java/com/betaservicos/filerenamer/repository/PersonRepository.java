@@ -18,6 +18,10 @@ public class PersonRepository {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    public PersonRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     public List<Integer> getAllPersonIds() {
         try {
             logger.info("Buscando id's dos candidatos - (person_id)");
@@ -36,12 +40,12 @@ public class PersonRepository {
         try {
             logger.info("Buscando Lista de arquivos no banco de Dados para Migração! ");
             String sql = "SELECT " +
-                    "tf.file_id, " +
-                    "tf.file_type, " +
-                    "tf.name, " +
-                    "tp.name as person_name" +
-                    "from person.person p " +
-                    "LEFT JOIN youdocx.files f ON f.owner_id = p.person_id" +
+                    "f.file_id, " +
+                    "f.file_type, " +
+                    "f.name, " +
+                    "p.name as person_name " +
+                    "from person.person as p " +
+                    "LEFT JOIN youdocx.files as f ON f.owner_id = p.person_id" +
                     "WHERE p.person_id = ? " +
                     "AND f.file_type <> 'dir'";
 
