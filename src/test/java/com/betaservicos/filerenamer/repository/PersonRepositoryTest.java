@@ -2,6 +2,8 @@ package com.betaservicos.filerenamer.repository;
 
 import com.betaservicos.filerenamer.config.DatabaseConfig;
 import com.betaservicos.filerenamer.domain.FileRecord;
+import com.betaservicos.filerenamer.domain.Person;
+import com.betaservicos.filerenamer.util.PersonRowMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -35,7 +37,7 @@ public class PersonRepositoryTest {
         when(jdbcTemplateMock.query(anyString(), any(Object[].class), any(RowMapper.class)))
                 .thenReturn(mockResult);
 
-        List<FileRecord> result = repository.getFilesForPersons(123);
+        List<FileRecord> result = repository.getFilesForPerson(123);
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
@@ -44,17 +46,32 @@ public class PersonRepositoryTest {
 
     @Test
     void testGetAllPersonIds_returnsList() {
-        List<Integer> mockIds = List.of(1, 2, 3);
+        List<Person> mockPersons = List.of(
+            new Person(1, "João Cleber"),
+            new Person(2, "Maria Souza"),
+            new Person(3, "Carlos Oliveira")
+        );
 
         // Simula o retorno da consulta
-        when(jdbcTemplateMock.query(anyString(), any(RowMapper.class)))
-                .thenReturn(mockIds);
+        when(jdbcTemplateMock.query(
+                anyString(),
+                any(PersonRowMapper.class)
+        )).thenReturn(mockPersons);
 
-        List<Integer> result = repository.getAllPersonIds();
+        List<Person> result = repository.getAllPersonIds();
 
         assertNotNull(result);
         assertEquals(3, result.size());
-        assertEquals(List.of(1, 2, 3), result);
+
+        assertEquals(1, result.get(0).getPersonId());
+        assertEquals("João Cleber", result.get(0).getPersonName());
+
+        assertEquals(2, result.get(1).getPersonId());
+        assertEquals("Maria Souza", result.get(1).getPersonName());
+
+        assertEquals(3, result.get(2).getPersonId());
+        assertEquals("Carlos Oliveira", result.get(2).getPersonName());
+
     }
 
     @Test
@@ -62,7 +79,7 @@ public class PersonRepositoryTest {
         when(jdbcTemplateMock.query(anyString(), any(RowMapper.class)))
                 .thenThrow(new RuntimeException("DB error test"));
 
-        List<Integer> result = repository.getAllPersonIds();
+        List<Person> result = repository.getAllPersonIds();
 
         assertNull(result);
     }
