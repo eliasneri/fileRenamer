@@ -1,13 +1,10 @@
 package com.betaservicos.filerenamer.config;
 
+import com.betaservicos.filerenamer.util.AppProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
 @Getter @Setter
 public class DatabaseConfig {
@@ -17,41 +14,24 @@ public class DatabaseConfig {
     private String url;
     private String user;
     private String password;
+    private boolean connected;
 
     public DatabaseConfig() {
-        load();
+        this.connected = load();
     }
 
     public boolean load() {
-        this.user = null;
-        this.password = null;
-        this.url = null;
 
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("application.properties")) {
+        this.url = AppProperties.get("db.url") + AppProperties.get("db.dataname");
+        this.password = AppProperties.get("db.password");
+        this.user = AppProperties.get("db.user");
 
-            Properties prop = new Properties();
-            if (input != null) {
-                prop.load(input);
-            } else {
-                throw new IOException("FAIL! application.properties");
-            }
-
-            this.url = prop.getProperty("db.url") + prop.getProperty("db.dataname");
-            this.password = prop.getProperty("db.password");
-            this.user = prop.getProperty("db.user");
-
-            if (url != null) {
-                logger.info("Conectado com sucesso: " + url);
-                return true;
-            } else {
-                logger.error("Não conectado !!!");
-                return false;
-            }
-
-        } catch (IOException ex) {
-            logger.error("Erro ao Ler arquivo de Configuração do Banco de Dados! ", ex);
+        if (url != null) {
+            logger.info("Conectado com sucesso: " + url);
+            return true;
+        } else {
+            logger.error("Não conectado !!!");
             return false;
         }
     }
-
 }

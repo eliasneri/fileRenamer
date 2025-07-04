@@ -30,7 +30,8 @@ public class PersonRepository {
                         "person_id, " +
                         "name " +
                         "FROM person.person " +
-                        "ORDER BY name ASC";
+                        "ORDER BY name ASC " +
+                        "limit 10";
 
                 List<Person> list = jdbcTemplate.query(sql, new PersonRowMapper());
                 logger.info("Encontrado: " + list.size() + " ids!");

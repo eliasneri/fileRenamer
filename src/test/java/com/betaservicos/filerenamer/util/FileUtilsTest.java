@@ -19,8 +19,8 @@ public class FileUtilsTest {
         Path testFile = Files.createFile(tempDir.resolve("123"));
 
         FileRecord record = new FileRecord(123, "txt", "documento", "João Silva");
-
-        FileSummary result = FileUtils.renameFile(tempDir.toString(), record);
+        FileUtils f = new FileUtils();
+        FileSummary result = f.renameFile(tempDir.toString(), record);
 
         assertTrue(result.isSuccess());
         assertEquals("123_Joao_Silva_documento.txt", result.getFileRenamed());
@@ -31,7 +31,8 @@ public class FileUtilsTest {
     void testRenameFile_FileNotFound() {
         FileRecord record = new FileRecord(999, "pdf", "doc", "Maria Souza");
 
-        FileSummary result = FileUtils.renameFile(tempDir.toString(), record);
+        FileUtils f = new FileUtils();
+        FileSummary result = f.renameFile(tempDir.toString(), record);
 
         assertFalse(result.isSuccess());
         assertEquals("semAção", result.getFileRenamed());
@@ -42,7 +43,8 @@ public class FileUtilsTest {
     void testRenameFile_InvalidFolder() {
         FileRecord record = new FileRecord(123, "jpg", "foto", "Carlos");
 
-        FileSummary result = FileUtils.renameFile("", record);
+        FileUtils f = new FileUtils();
+        FileSummary result = f.renameFile("", record);
 
         assertFalse(result.isSuccess());
         assertEquals("semAção", result.getFileRenamed());
@@ -50,12 +52,25 @@ public class FileUtilsTest {
     }
 
     @Test
+        void testRenameFile_ObjectError() throws IOException {
+        Files.createFile(tempDir.resolve("456_teste.dat"));
+
+        FileRecord record = new FileRecord();
+
+        FileUtils f = new FileUtils();
+        FileSummary result = f.renameFile(tempDir.toString(), record);
+
+        assertFalse(result.isSuccess());
+        assertEquals("object file invalid", result.getMessage());
+    }
+    @Test
     void testRenameFile_GenerateNameError() throws IOException {
         Files.createFile(tempDir.resolve("456_teste.dat"));
 
-        FileRecord record = new FileRecord(456, null, null, null);
+        FileRecord record = new FileRecord(456, "", "", null);
 
-        FileSummary result = FileUtils.renameFile(tempDir.toString(), record);
+        FileUtils f = new FileUtils();
+        FileSummary result = f.renameFile(tempDir.toString(), record);
 
         assertFalse(result.isSuccess());
         assertTrue(result.getMessage().contains("generate new name error"));
@@ -67,7 +82,8 @@ public class FileUtilsTest {
         Files.createFile(tempDir.resolve("222"));
 
         File[] files = tempDir.toFile().listFiles();
-        File found = FileUtils.findFileById(files, "111");
+        FileUtils f = new FileUtils();
+        File found = f.findFileById(files, "111");
 
         assertNotNull(found);
         assertTrue(found.getName().startsWith("111"));
@@ -78,7 +94,9 @@ public class FileUtilsTest {
         Files.createFile(tempDir.resolve("333_arquivo.pdf"));
 
         File[] files = tempDir.toFile().listFiles();
-        File found = FileUtils.findFileById(files, "999");
+
+        FileUtils f = new FileUtils();
+        File found = f.findFileById(files, "999");
 
         assertNull(found);
     }
@@ -87,7 +105,8 @@ public class FileUtilsTest {
     void testGenerateNewFileName_NormalCase() {
         FileRecord record = new FileRecord(789, "png", "imagem", "José Álves");
 
-        String result = FileUtils.generateNewFileName(record, "789");
+        FileUtils f = new FileUtils();
+        String result = f.generateNewFileName(record, "789");
 
         assertEquals("789_Jose_Alves_imagem.png", result);
     }
@@ -96,7 +115,8 @@ public class FileUtilsTest {
     void testGenerateNewFileName_WithSpecialChars() {
         FileRecord record = new FileRecord(101, "docx", "relatório", "Mário Ângelo");
 
-        String result = FileUtils.generateNewFileName(record, "101");
+        FileUtils f = new FileUtils();
+        String result = f.generateNewFileName(record, "101");
 
         assertEquals("101_Mario_Angelo_relatorio.docx", result);
     }
@@ -105,15 +125,17 @@ public class FileUtilsTest {
     void testGenerateNewFileName_NoExtension() {
         FileRecord record = new FileRecord(202, "dat", "dados", "Ana");
 
-        String result = FileUtils.generateNewFileName(record, "202");
+        FileUtils f = new FileUtils();
+        String result = f.generateNewFileName(record, "202");
 
         assertEquals("202_Ana_dados.dat", result);
     }
 
     @Test
     void testGenerateNewFileName_InvalidInput() {
-        assertNull(FileUtils.generateNewFileName(null, "test.txt"));
-        assertNull(FileUtils.generateNewFileName(new FileRecord(), ""));
+        FileUtils f = new FileUtils();
+        assertNull(f.generateNewFileName(null, "test.txt"));
+        assertNull(f.generateNewFileName(new FileRecord(), ""));
     }
 
 }
