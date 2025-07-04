@@ -1,0 +1,6 @@
+2025-07-04 10:21:37.845 [main] INFO  Main - -------------- APLICAÇÃO INICIADA ----------------
+2025-07-04 10:21:38.601 [main] INFO  DatabaseConfig - Conectado com sucesso! jdbc:postgresql://localhost:5432/betaservicos.
+2025-07-04 10:21:38.723 [main] INFO  DatabaseInitializer - Conexão estabelecida.
+2025-07-04 10:21:38.759 [main] INFO  DatabaseInitializer - Schema 'migration' já existe.
+2025-07-04 10:21:38.775 [main] INFO  DatabaseInitializer - Tabelas já existem. Nenhuma ação necessária.
+2025-07-04 10:21:38.776 [main] INFO  Main - -------------- APLICAÇÃO FINALIZADA --------------

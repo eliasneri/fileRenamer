@@ -1,5 +1,6 @@
 package com.betaservicos.filerenamer.service;
 
+import com.betaservicos.filerenamer.config.DatabaseConfig;
 import com.betaservicos.filerenamer.domain.FileRecord;
 import com.betaservicos.filerenamer.domain.FileSummary;
 import com.betaservicos.filerenamer.domain.Person;
@@ -29,13 +30,16 @@ public class FileRenameServiceTest {
     @Mock
     private FileUtils fileUtils;
 
+    @Mock
+    private DatabaseConfig dbConfig;
+
     private FileRenameService fileRenameService;
 
     private static final String FOLDER_PATH = "/some/folder/path"; // Caso necessário
 
     @BeforeEach
     void setUp() {
-        fileRenameService = new FileRenameService(personRepository, fileUtils);
+        fileRenameService = new FileRenameService(personRepository, fileUtils, dbConfig);
     }
 
     @Test
@@ -71,6 +75,7 @@ public class FileRenameServiceTest {
 
     @Test
     void testProcessAllFiles_WithPersonsAndFiles_ReturnsCorrectSummaryList() {
+        when(dbConfig.isConnected()).thenReturn(true);
         Person person1 = new Person(1, "João Cleber");
         Person person2 = new Person(2, "Maria Souza");
 
@@ -106,6 +111,7 @@ public class FileRenameServiceTest {
 
     @Test
     void testProcessAllFiles_WithFileRenameFailure_LogsErrorAndContinues() {
+        when(dbConfig.isConnected()).thenReturn(true);
         Person person = new Person(1, "João Cleber");
         FileRecord file = new FileRecord(101, "pdf", "doc1", "João Cleber");
         FileSummary failedSummary = new FileSummary(101, "semAção", false, "Error message");
@@ -125,6 +131,7 @@ public class FileRenameServiceTest {
 
     @Test
     void testProcessAllFiles_WithExceptionOnGetFilesForPerson_ContinuesProcessing() {
+
         Person person1 = new Person(1, "João Cleber");
         Person person2 = new Person(2, "Maria Souza");
 

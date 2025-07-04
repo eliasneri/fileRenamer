@@ -18,7 +18,7 @@ public class Generics {
     }
 
     public static boolean isNullOrBlank(String s) {
-        return s == null || s.isBlank();
+        return s == null || s.isBlank() || s.equals("null");
     }
 
 }

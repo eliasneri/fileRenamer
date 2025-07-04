@@ -1,6 +1,7 @@
 package com.betaservicos.filerenamer;
 
 import com.betaservicos.filerenamer.config.DatabaseConfig;
+import com.betaservicos.filerenamer.config.DatabaseInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +20,7 @@ public class Main {
             DatabaseConfig dbConfig = new DatabaseConfig();
 
             if (dbConfig.isConnected()) {
-
+                DatabaseInitializer init = new DatabaseInitializer(dbConfig);
             }
 
             logger.info("-------------- APLICAÇÃO FINALIZADA --------------");

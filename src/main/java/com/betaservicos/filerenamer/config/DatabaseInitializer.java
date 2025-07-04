@@ -64,7 +64,7 @@ public class DatabaseInitializer {
                         );
                         
                         ALTER TABLE migration.file_summary
-                        ADD CONSTRAINT IF NOT EXISTS fk_summary_id
+                        ADD CONSTRAINT fk_summary_id
                         FOREIGN KEY (file_summary_fk_summary_id)
                         REFERENCES migration.summary (summary_id);
                     """);
@@ -102,7 +102,7 @@ public class DatabaseInitializer {
                 logger.info("Schema '{}' já existe.", schemaName);
             }
         } catch (Exception e) {
-            logger.error("Erro : '{}': ", e.getMessage());
+            logger.error("Erro  {} ", e.getMessage());
         }
     }
 

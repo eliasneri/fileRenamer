@@ -1,0 +1,3 @@
+2025-07-04 16:54:02.511 [main] INFO  FileRenameService - Progresso: 1 de 1.
+2025-07-04 16:54:02.516 [main] INFO  FileRenameService - Buscando Arquivos person_id: 1
+2025-07-04 16:54:02.519 [main] INFO  FileRenameService - Processando: 1 de 1 arquivos para: João Cleber

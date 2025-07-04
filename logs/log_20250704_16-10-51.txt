@@ -1,0 +1,1 @@
+2025-07-04 16:10:51.692 [main] ERROR SummaryRepository - Erro durante insert: Cannot invoke "java.lang.Integer.intValue()" because the return value of "com.betaservicos.filerenamer.domain.Summary.getSummaryPersonId()" is null
