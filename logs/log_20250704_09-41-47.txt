@@ -1,3 +1,0 @@
-2025-07-04 09:41:48.204 [main] INFO  Main - -------------- APLICAÇÃO INICIADA ----------------
-2025-07-04 09:41:48.217 [main] INFO  DatabaseConfig - Conectado com sucesso: jdbc:postgresql://localhost:5432/betaservicos
-2025-07-04 09:41:48.223 [main] INFO  Main - -------------- APLICAÇÃO FINALIZADA --------------

@@ -1,2 +1,0 @@
-2025-07-04 16:48:14.796 [main] WARN  SummaryRepository - Person_ID (123) já cadastrado anteriormente.... ignorando insert!
-2025-07-04 16:48:14.811 [main] ERROR SummaryRepository - Erro durante insert: id not found!

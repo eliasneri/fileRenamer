@@ -47,7 +47,7 @@ public class FileRenameService {
 
         if (personIds == null || personIds.isEmpty()) {
             logger.info("Sem ids de usuário para migrar... ABORTANDO");
-            return Collections.emptyList(); // Melhor que retornar null
+            return Collections.emptyList();
         }
 
         List<Summary> listSummary = new ArrayList<>();

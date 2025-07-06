@@ -1,4 +1,0 @@
-2025-07-04 10:03:25.638 [main] INFO  Main - -------------- APLICAÇÃO INICIADA ----------------
-2025-07-04 10:03:26.116 [main] ERROR DatabaseConfig - Erro ao conectar com o banco de dados: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
-2025-07-04 10:03:26.121 [main] ERROR DatabaseConfig - Não conectando!!
-2025-07-04 10:03:26.121 [main] INFO  Main - -------------- APLICAÇÃO FINALIZADA --------------

@@ -1,3 +1,0 @@
-2025-07-04 14:22:30.251 [main] INFO  SummaryReportService - CSV gerado com sucesso em: /home/eliasneri/Documentos/developments/betaServicos/fileRenamer/relatorio_04072025_142230.csv
-2025-07-04 14:22:30.322 [main] INFO  SummaryReportService - Relatório gerado com sucesso: /home/eliasneri/Documentos/developments/betaServicos/fileRenamer/relatorio_04072025_142230.csv
-2025-07-04 14:22:30.391 [main] INFO  SummaryReportService - CSV gerado com sucesso em: /home/eliasneri/Documentos/developments/betaServicos/fileRenamer/relatorio_04072025_142230.csv

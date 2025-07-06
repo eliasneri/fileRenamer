@@ -1,2 +1,0 @@
-2025-07-04 16:11:43.812 [main] WARN  SummaryRepository - Person_ID (123) já cadastrado anteriormente.... ignorando insert!
-2025-07-04 16:11:43.832 [main] ERROR SummaryRepository - Erro durante insert: Cannot invoke "java.lang.Integer.intValue()" because the return value of "com.betaservicos.filerenamer.domain.Summary.getSummaryPersonId()" is null

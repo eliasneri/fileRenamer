@@ -2,6 +2,7 @@ package com.betaservicos.filerenamer;
 
 import com.betaservicos.filerenamer.config.DatabaseConfig;
 import com.betaservicos.filerenamer.config.DatabaseInitializer;
+import com.betaservicos.filerenamer.service.FileRenameService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +22,9 @@ public class Main {
 
             if (dbConfig.isConnected()) {
                 DatabaseInitializer init = new DatabaseInitializer(dbConfig);
+                FileRenameService service = FileRenameService.fromConfig(dbConfig);
+                service.processAllFiles();
+
             }
 
             logger.info("-------------- APLICAÇÃO FINALIZADA --------------");
