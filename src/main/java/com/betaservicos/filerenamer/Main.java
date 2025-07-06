@@ -2,11 +2,14 @@ package com.betaservicos.filerenamer;
 
 import com.betaservicos.filerenamer.config.DatabaseConfig;
 import com.betaservicos.filerenamer.config.DatabaseInitializer;
+import com.betaservicos.filerenamer.domain.Summary;
 import com.betaservicos.filerenamer.service.FileRenameService;
+import com.betaservicos.filerenamer.service.SummaryReportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.List;
 
 public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
@@ -23,8 +26,10 @@ public class Main {
             if (dbConfig.isConnected()) {
                 DatabaseInitializer init = new DatabaseInitializer(dbConfig);
                 FileRenameService service = FileRenameService.fromConfig(dbConfig);
-                service.processAllFiles();
+                List<Summary> summaryList = service.processAllFiles();
 
+                //Relatório
+                SummaryReportService reportService = new SummaryReportService(summaryList);
             }
 
             logger.info("-------------- APLICAÇÃO FINALIZADA --------------");

@@ -23,6 +23,8 @@ public class SummaryReportService {
     public SummaryReportService(List<Summary> summaryList) {
         this.summaryList = summaryList;
         this.fileName = "relatorio_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss"));
+        generateCsv(summaryList);
+        generateReport(summaryList);
     }
 
     public boolean generateCsv(List<Summary> summaries) {
