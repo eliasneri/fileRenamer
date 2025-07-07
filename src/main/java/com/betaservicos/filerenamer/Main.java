@@ -43,8 +43,5 @@ public class Main {
         } catch (Exception e){
             logger.error("Erro durante a execução: ", e);
         }
-
-
     }
-
 }
