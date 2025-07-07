@@ -55,7 +55,7 @@ public class DatabaseInitializer {
                         );
                         
                         CREATE TABLE IF NOT EXISTS migration.file_summary (
-                            file_summary_id bigint PRIMARY KEY,
+                            file_summary_id serial4 PRIMARY KEY,
                             file_summary_file_id bigint NOT NULL,
                             file_summary_filerenamed varchar(1000),
                             file_summary_success boolean NOT NULL,

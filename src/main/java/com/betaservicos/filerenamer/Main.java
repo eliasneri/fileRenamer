@@ -30,6 +30,12 @@ public class Main {
 
                 //Relatório
                 SummaryReportService reportService = new SummaryReportService(summaryList);
+                //txt
+                boolean txt = reportService.generateReport(summaryList);
+                boolean csv = reportService.generateCsv(summaryList);
+                logger.info("Relatório TXT: {}", txt);
+                logger.info("Relatório CSV: {}", csv);
+
             }
 
             logger.info("-------------- APLICAÇÃO FINALIZADA --------------");

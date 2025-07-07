@@ -23,8 +23,6 @@ public class SummaryReportService {
     public SummaryReportService(List<Summary> summaryList) {
         this.summaryList = summaryList;
         this.fileName = "relatorio_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss"));
-        generateCsv(summaryList);
-        generateReport(summaryList);
     }
 
     public boolean generateCsv(List<Summary> summaries) {
@@ -93,7 +91,7 @@ public class SummaryReportService {
 
             writer.flush();
 
-            logger.info("Relatório gerado com sucesso: {}", outputPath);
+            logger.info("Relatório TXT gerado com sucesso: {}", outputPath);
             return true;
 
         } catch (IOException e) {

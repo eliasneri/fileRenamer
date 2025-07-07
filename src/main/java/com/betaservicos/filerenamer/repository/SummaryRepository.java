@@ -86,7 +86,7 @@ public class SummaryRepository {
             // Inserir lista de arquivos
             for (FileSummary item : summary.getFileSummaryList()) {
                 PreparedStatement filePs = conn.prepareStatement(SQL_FILE_SUMMARY);
-                filePs.setInt(1, item.getFileId());
+                filePs.setLong(1, item.getFileId());
                 filePs.setString(2, item.getFileRenamed());
                 filePs.setBoolean(3, item.isSuccess());
                 filePs.setString(4, item.getMessage());
