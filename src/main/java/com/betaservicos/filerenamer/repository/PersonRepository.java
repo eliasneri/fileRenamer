@@ -52,7 +52,7 @@ public class PersonRepository {
                     "p.name as person_name " +
                     "from person.person as p " +
                     "LEFT JOIN youdocx.files as f ON f.owner_id = p.person_id " +
-                    "LEFT JOIN migration.file_summary as mfs ON f.file_id = mfs.file_summary_id " +
+                    "LEFT JOIN migration.file_summary AS mfs ON mfs.file_summary_file_id = f.file_id " +
                     "WHERE p.person_id = ? " +
                     "AND f.file_type <> 'dir' " +
                     "AND mfs.file_summary_id IS NULL";
